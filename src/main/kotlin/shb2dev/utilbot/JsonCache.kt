@@ -29,7 +29,7 @@ data class JsonCache(var bumpData: BumpData? = null, var ruleData: RuleData? = n
 
     }
     private suspend fun sendRuleMessage(channel: GuildMessageChannelBehavior) {
-        val ruleMessage = RuleData("", 0u).getRuleMessage()
+        val ruleMessage = RuleData(null, 0u).getRuleMessage()
         val message = channel.createMessage(ruleMessage)
 
         message.addReaction(ReactionEmoji.Unicode("\u2705")) // ✅
