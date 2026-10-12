@@ -1,6 +1,5 @@
 package shb2dev.utilbot
 
-import dev.kord.common.entity.OverwriteType.Role
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.MessageChannelBehavior
@@ -15,7 +14,6 @@ import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
