@@ -110,10 +110,12 @@ object Main {
                     // TODO: ここのハードコードは多分直したほうが良いけど、どっちでも良さそう
                     user.asMember(serverSnowflake).addRole(Snowflake(1222792284790067220), "ルールに同意したため")
                     Logger.info("Add 'member' role to User {}", user.asUser().username)
+                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${user.asUser().username}がルールに同意しました")
                 }
                 "\u274C" -> {
                     user.asMember(serverSnowflake).addRole(Snowflake(1371847552948895744), "ルールに同意しなかったため")
                     Logger.info("Add 'disagree' role to User {}", user.asUser().username)
+                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${user.asUser().username}がルールに同意しませんでした\uD83D\uDE21")
                 }
             }
 
