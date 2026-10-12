@@ -107,7 +107,7 @@ object Main {
 
             when (emoji.name) {
                 "\u2705" -> {
-                    // ここのハードコードは多分直したほうが良いけど、どっちでも良さそう
+                    // TODO: ここのハードコードは多分直したほうが良いけど、どっちでも良さそう
                     user.asMember(serverSnowflake).addRole(Snowflake(1222792284790067220), "ルールに同意したため")
                     Logger.info("Add 'member' role to User {}", user.asUser().username)
                 }
