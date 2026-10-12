@@ -1,8 +1,6 @@
 package shb2dev.utilbot
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.core.Kord
-import dev.kord.core.behavior.channel.GuildChannelBehavior
 import dev.kord.core.behavior.channel.GuildMessageChannelBehavior
 import dev.kord.core.behavior.edit
 import dev.kord.core.entity.ReactionEmoji
