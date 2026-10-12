@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.4.21"
+    kotlin("plugin.serialization") version "2.4.21"
 }
 
 group = "uk.amaiice"
@@ -11,6 +12,8 @@ repositories {
 
 dependencies {
     implementation("dev.kord:kord-core:0.18.1")
+// Source: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation("ch.qos.logback:logback-classic:1.6.5")
 
     testImplementation(kotlin("test"))
 }
