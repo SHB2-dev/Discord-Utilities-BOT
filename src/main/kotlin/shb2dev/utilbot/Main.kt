@@ -1,5 +1,6 @@
 package shb2dev.utilbot
 
+import dev.kord.common.entity.OverwriteType.Role
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.MessageChannelBehavior
@@ -14,6 +15,7 @@ import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.interaction.integer
 import dev.kord.rest.builder.interaction.user
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -105,17 +107,27 @@ object Main {
             // ルールについたリアクションでロールを付与するやつ
             if (messageId.value != CacheManager.cache.ruleData?.ruleMessageID) return@on
 
+            val member = user.asMember(serverSnowflake)
+
             when (emoji.name) {
                 "\u2705" -> {
                     // TODO: ここのハードコードは多分直したほうが良いけど、どっちでも良さそう
-                    user.asMember(serverSnowflake).addRole(Snowflake(1222792284790067220), "ルールに同意したため")
+                    val memberRole = Snowflake(1222792284790067220)
+
+                    if (member.roleIds.contains(memberRole)) return@on Logger.warn("This user is already have memberRole.")
+
+                    member.addRole(memberRole, "ルールに同意したため")
                     Logger.info("Add 'member' role to User {}", user.asUser().username)
-                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${user.asUser().username}がルールに同意しました")
+                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${member.nickname ?: member.effectiveName}がルールに同意しました")
                 }
                 "\u274C" -> {
-                    user.asMember(serverSnowflake).addRole(Snowflake(1371847552948895744), "ルールに同意しなかったため")
+                    val disagreeRole = Snowflake(1371847552948895744)
+
+                    if (member.roleIds.contains(disagreeRole)) return@on Logger.warn("This user is already have disagreeRole.")
+
+                    member.addRole(disagreeRole, "ルールに同意しなかったため")
                     Logger.info("Add 'disagree' role to User {}", user.asUser().username)
-                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${user.asUser().username}がルールに同意しませんでした\uD83D\uDE21")
+                    MessageChannelBehavior(Snowflake(1371860755053543586), kord).createMessage("\u2705${member.nickname ?: member.effectiveName}がルールに同意しませんでした\uD83D\uDE21")
                 }
             }
 
